@@ -6,7 +6,7 @@ export default function UserCard() {
   const icons = [Github, Instagram, Linkedin, Twitter, Plus];
 
   return (
-    <div className="w-[348px] flex flex-col gap-5 items-center p-5 border border-white border-opacity-10 bg-[#121212] rounded-3xl text-white">
+    <div className="w-[348px] flex flex-col gap-5 items-center p-5 border border-border-secondary border-opacity-10 bg-[#121212] rounded-3xl text-white">
       <div className="size-48">
         <Image
           src="/me.jpg"
