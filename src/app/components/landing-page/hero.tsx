@@ -1,3 +1,4 @@
+import ProjectCard from "../commons/project-card";
 import TotalVisits from "../commons/total-visits";
 import UserCard from "../commons/user-card";
 import Button from "../ui/button";
@@ -24,7 +25,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="w-full flex items-center justify-center bg-[radial-gradient(circle_at_50%_50%,#4B2DBB,transparent_55%)]">
+      <div className="w-full flex items-center justify-center bg-[radial-gradient(circle_at_50%_50%,#4B2DBB,transparent_45%)]">
         <div className="relative">
           <UserCard />
 
@@ -33,11 +34,11 @@ export default function Hero() {
           </div>
 
           <div className="absolute top-[20%] -left-[45%] -z-10">
-            {/* <ProjectCard /> */}
+            <ProjectCard />
           </div>
 
           <div className="absolute -top-[5%] -left-[55%] -z-10">
-            {/* <ProjectCard /> */}
+            <ProjectCard />
           </div>
         </div>
       </div>
