@@ -19,8 +19,9 @@ export default function Hero() {
         </h2>
 
         <div className="flex items-center gap-2 w-full mt-[10vh]">
-          <span className="text-white text-xl">projectinbio.com</span>
+          <span className="text-white text-xl">projectinbio.com/</span>
           <TextInput placeholder="Seu link" />
+
           <Button>Criar agora</Button>
         </div>
       </div>
