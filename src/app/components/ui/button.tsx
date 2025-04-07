@@ -2,7 +2,7 @@ import { cn } from "@/app/lib/utils";
 import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost";
 }
 
 export default function Button({
