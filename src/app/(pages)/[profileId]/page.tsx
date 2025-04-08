@@ -1,8 +1,11 @@
 import ProjectCard from "@/app/components/commons/project-card";
 import TotalVisits from "@/app/components/commons/total-visits";
 import UserCard from "@/app/components/commons/user-card";
-import { Plus } from "lucide-react";
+import { auth } from "@/app/lib/auth";
+import { getProfileData } from "@/app/server/get-profile-data";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import NewProject from "./new-project";
 
 interface ProfilePageProps {
   params: Promise<{ profileId: string }>;
@@ -10,6 +13,19 @@ interface ProfilePageProps {
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
   const { profileId } = await params;
+
+  const session = await auth();
+  const profileData = await getProfileData(profileId);
+
+  // TODO: Get projects
+
+  if (!profileData) return notFound();
+
+  const isOwner = profileData.userId === session?.user?.id;
+
+  // TODO: Add page view
+
+  // TODO: Verify user trial period. Redirect to upgrade page
 
   return (
     <div className="relative h-screen flex p-20 overflow-hidden">
@@ -37,10 +53,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
         <ProjectCard />
         <ProjectCard />
 
-        <button className="w-[340px] h-[132px] rounded-[20px] bg-background-secondary flex items-center justify-center gap-2 hover:border border-dashed border-border-secondary">
-          <Plus className="size-10" />
-          <span className="text-accent-green">Novo projeto</span>
-        </button>
+        {isOwner && <NewProject profileId={profileId} />}
       </div>
 
       <div className="absolute bottom-4 right-0 left-0 w-min mx-auto">
