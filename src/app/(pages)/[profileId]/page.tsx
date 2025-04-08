@@ -4,11 +4,11 @@ import UserCard from "@/app/components/commons/user-card";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
-export default async function ProfilePage({
-  params,
-}: {
-  params: { profileId: string };
-}) {
+interface ProfilePageProps {
+  params: Promise<{ profileId: string }>;
+}
+
+export default async function ProfilePage({ params }: ProfilePageProps) {
   const { profileId } = await params;
 
   return (
