@@ -5,11 +5,15 @@ import Button from "@/app/components/ui/button";
 import Modal from "@/app/components/ui/modal";
 import TextArea from "@/app/components/ui/text-area";
 import TextInput from "@/app/components/ui/text-input";
-import { compressFiles } from "@/app/lib/utils";
+import {
+  compressFiles,
+  handleImageInput,
+  triggerImageInput,
+} from "@/app/lib/utils";
 import { ArrowUpFromLine, Plus } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, startTransition, useState } from "react";
+import { startTransition, useState } from "react";
 
 interface NewProjectProps {
   profileId: string;
@@ -26,19 +30,6 @@ export default function NewProject({ profileId }: NewProjectProps) {
   const [isCreatingProject, setIsCreatingProject] = useState(false);
 
   const openModal = () => setIsOpen(true);
-
-  const triggerImageInput = (inputId: string) =>
-    document.getElementById(inputId)?.click();
-
-  const handleImageInput = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] ?? null;
-
-    if (file) {
-      return setProjectImage(URL.createObjectURL(file));
-    }
-
-    return setProjectImage(null);
-  };
 
   const handleSaveProject = async () => {
     setIsCreatingProject(true);
@@ -123,7 +114,7 @@ export default function NewProject({ profileId }: NewProjectProps) {
                 id="imageInput"
                 accept="image/*"
                 className="hidden"
-                onChange={handleImageInput}
+                onChange={(e) => setProjectImage(handleImageInput(e))}
               />
             </div>
 

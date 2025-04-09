@@ -8,6 +8,9 @@ export interface Link {
 
 export interface ProfileData {
   userId: string;
+  name?: string;
+  description?: string;
+  imagePath?: string;
   totalVisits: number;
   socialMedias: {
     gitHub: string;

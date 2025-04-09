@@ -1,7 +1,8 @@
 "use server";
 
-import { db } from "../lib/firebase";
-import { Link } from "../server/get-profile-data";
+import { auth } from "@/app/lib/auth";
+import { db } from "@/app/lib/firebase";
+import { Link } from "@/app/server/get-profile-data";
 
 interface AddCustomLinksProps {
   profileId: string;
@@ -17,6 +18,10 @@ export default async function addCustomLinks({
   link3,
 }: AddCustomLinksProps) {
   try {
+    const session = await auth();
+
+    if (!session?.user) return false;
+
     if (!profileId) return false;
 
     await db.collection("profiles").doc(profileId).update({

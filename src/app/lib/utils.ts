@@ -1,6 +1,7 @@
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import imageCompression, { Options } from "browser-image-compression";
+import { ChangeEvent } from "react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -44,4 +45,18 @@ export async function compressFiles(files: File[]) {
 
 export function formatUrl(url: string) {
   return url.startsWith("http") ? url : `https://${url}`;
+}
+
+export function triggerImageInput(inputId: string) {
+  document.getElementById(inputId)?.click();
+}
+
+export function handleImageInput(event: ChangeEvent<HTMLInputElement>) {
+  const file = event.target.files?.[0] ?? null;
+
+  if (file) {
+    return URL.createObjectURL(file);
+  }
+
+  return null;
 }

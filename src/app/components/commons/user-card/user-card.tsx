@@ -1,38 +1,48 @@
+/* eslint-disable @next/next/no-img-element */
 import Button from "@/app/components/ui/button";
+import { getDownloadURLFromPath } from "@/app/lib/firebase";
+import { formatUrl } from "@/app/lib/utils";
 import { ProfileData } from "@/app/server/get-profile-data";
 import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import AddCustomLink from "./add-custom-link";
 import EditSocialLinks from "./edit-social-links";
-import { formatUrl } from "@/app/lib/utils";
+import EditUserCard from "./edit-user-card";
 
 interface UserCardProps {
   profileData?: ProfileData;
+  isOwner?: boolean;
 }
 
-export default function UserCard({ profileData }: UserCardProps) {
+export default async function UserCard({
+  profileData,
+  isOwner = false,
+}: UserCardProps) {
   return (
     <div className="w-[348px] flex flex-col gap-5 items-center p-5 border border-border-secondary border-opacity-10 bg-[#121212] rounded-3xl text-white">
       <div className="size-48">
-        <Image
-          src="/me.jpg"
+        <img
+          src={
+            profileData?.imagePath
+              ? await getDownloadURLFromPath(profileData.imagePath)
+              : "/me.jpg"
+          }
           alt="Vini Dev"
-          width={348}
-          height={348}
-          className="rounded-full object-cover w-full h-full"
+          className="rounded-full object-cover size-full"
         />
       </div>
 
       <div className="flex flex-col gap-2 w-full">
         <div className="flex items-center gap-2">
           <h3 className="text-3xl font-bold min-w-0 overflow-hidden">
-            Vini Dev
+            {profileData?.name || "Vini Dev"}
           </h3>
+
+          {isOwner && <EditUserCard profileData={profileData} />}
         </div>
 
         <p className="opacity-40">
-          &quot;Eu faço produtos para a Internet&quot;
+          {profileData?.description || `"Eu faço produtos para a Internet"`}
         </p>
       </div>
 
@@ -80,11 +90,13 @@ export default function UserCard({ profileData }: UserCardProps) {
             </Link>
           )}
 
-          <EditSocialLinks socialMedias={profileData?.socialMedias} />
+          {isOwner && (
+            <EditSocialLinks socialMedias={profileData?.socialMedias} />
+          )}
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 w-full h-[172px]">
+      <div className="flex flex-col gap-3 w-full min-h-[172px]">
         <div className="w-full flex flex-col items-center gap-3">
           {!!profileData?.link1 && (
             <Link
@@ -115,10 +127,10 @@ export default function UserCard({ profileData }: UserCardProps) {
               <Button className="w-full">{profileData.link3.title}</Button>
             </Link>
           )}
+
+          {isOwner && <AddCustomLink />}
         </div>
       </div>
-
-      <AddCustomLink />
     </div>
   );
 }
