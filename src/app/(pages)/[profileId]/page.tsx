@@ -21,8 +21,6 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
   const session = await auth();
   const profileData = await getProfileData(profileId);
 
-  // TODO: Get projects
-
   const projects = await getProfileProjects(profileId);
 
   if (!profileData) return notFound();
