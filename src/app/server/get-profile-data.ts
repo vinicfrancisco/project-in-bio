@@ -4,7 +4,14 @@ import { db } from "../lib/firebase";
 export interface ProfileData {
   userId: string;
   totalVisits: number;
+  socialMedias: {
+    gitHub: string;
+    instagram: string;
+    linkedin: string;
+    twitter: string;
+  };
   createdAt: number;
+  updatedAt: number;
 }
 
 export interface ProjectData {
