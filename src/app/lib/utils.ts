@@ -41,3 +41,7 @@ export async function compressFiles(files: File[]) {
 
   return (await Promise.all(compressPromises)).filter((file) => file !== null);
 }
+
+export function formatUrl(url: string) {
+  return url.startsWith("http") ? url : `https://${url}`;
+}

@@ -1,6 +1,11 @@
 import "server-only";
 import { db } from "../lib/firebase";
 
+export interface Link {
+  title: string;
+  url: string;
+}
+
 export interface ProfileData {
   userId: string;
   totalVisits: number;
@@ -10,6 +15,9 @@ export interface ProfileData {
     linkedin: string;
     twitter: string;
   };
+  link1?: Link;
+  link2?: Link;
+  link3?: Link;
   createdAt: number;
   updatedAt: number;
 }
