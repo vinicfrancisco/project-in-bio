@@ -27,3 +27,16 @@ if (!getApps().length) {
 // Export Firebase Services
 export const db = getFirestore();
 export const storage = getStorage();
+
+export async function getDownloadURLFromPath(path?: string) {
+  if (!path) return;
+
+  const file = storage.bucket().file(path);
+
+  const url = await file.getSignedUrl({
+    action: "read",
+    expires: "03-01-2500",
+  });
+
+  return url.toString();
+}
