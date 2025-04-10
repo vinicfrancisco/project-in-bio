@@ -60,5 +60,5 @@ export async function getProfileId(userId?: string) {
     .where("userId", "==", userId)
     .get();
 
-  return snapshot.docs[0].id;
+  return snapshot.docs[0]?.id;
 }

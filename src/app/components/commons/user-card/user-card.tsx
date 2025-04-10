@@ -52,7 +52,7 @@ export default async function UserCard({
         <span className="uppercase text-xs font-medium">Links</span>
 
         <div className="flex gap-3">
-          {!!profileData?.socialMedias.gitHub && (
+          {!!profileData?.socialMedias?.gitHub && (
             <Link
               href={profileData.socialMedias.gitHub}
               target="_blank"
@@ -62,7 +62,7 @@ export default async function UserCard({
             </Link>
           )}
 
-          {!!profileData?.socialMedias.instagram && (
+          {!!profileData?.socialMedias?.instagram && (
             <Link
               href={profileData?.socialMedias.instagram}
               target="_blank"
@@ -72,7 +72,7 @@ export default async function UserCard({
             </Link>
           )}
 
-          {!!profileData?.socialMedias.linkedin && (
+          {!!profileData?.socialMedias?.linkedin && (
             <Link
               href={profileData?.socialMedias.linkedin}
               target="_blank"
@@ -82,7 +82,7 @@ export default async function UserCard({
             </Link>
           )}
 
-          {!!profileData?.socialMedias.twitter && (
+          {!!profileData?.socialMedias?.twitter && (
             <Link
               href={profileData?.socialMedias.twitter}
               target="_blank"
