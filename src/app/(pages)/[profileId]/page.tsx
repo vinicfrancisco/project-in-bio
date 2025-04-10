@@ -1,7 +1,9 @@
+import increaseProfileVisits from "@/app/actions/increase-profile-visits";
 import ProjectCard from "@/app/components/commons/project-card";
 import TotalVisits from "@/app/components/commons/total-visits";
 import UserCard from "@/app/components/commons/user-card/user-card";
 import { auth } from "@/app/lib/auth";
+import { getDownloadURLFromPath } from "@/app/lib/firebase";
 import {
   getProfileData,
   getProfileProjects,
@@ -9,7 +11,6 @@ import {
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import NewProject from "./new-project";
-import { getDownloadURLFromPath } from "@/app/lib/firebase";
 
 interface ProfilePageProps {
   params: Promise<{ profileId: string }>;
@@ -27,7 +28,9 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
   const isOwner = profileData.userId === session?.user?.id;
 
-  // TODO: Add page view
+  if (!isOwner) {
+    await increaseProfileVisits(profileId);
+  }
 
   // TODO: Verify user trial period. Redirect to upgrade page
 
@@ -60,9 +63,11 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
         {isOwner && <NewProject profileId={profileId} />}
       </div>
 
-      <div className="absolute bottom-4 right-0 left-0 w-min mx-auto">
-        <TotalVisits />
-      </div>
+      {isOwner && (
+        <div className="absolute bottom-4 right-0 left-0 w-min mx-auto">
+          <TotalVisits totalVisits={profileData.totalVisits} />
+        </div>
+      )}
     </div>
   );
 }

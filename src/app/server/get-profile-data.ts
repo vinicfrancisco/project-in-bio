@@ -33,7 +33,7 @@ export interface ProjectData {
   projectUrl: string;
   imagePath: string;
   createdAt: number;
-  totalVisit?: number;
+  totalVisits?: number;
 }
 
 export async function getProfileData(profileId: string) {
@@ -44,7 +44,7 @@ export async function getProfileData(profileId: string) {
 
 export async function getProfileProjects(profileId: string) {
   const snapshot = await db
-    .collection("projects")
+    .collection("profiles")
     .doc(profileId)
     .collection("projects")
     .get();
