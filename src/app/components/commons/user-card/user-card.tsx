@@ -3,7 +3,7 @@ import Button from "@/app/components/ui/button";
 import { getDownloadURLFromPath } from "@/app/lib/firebase";
 import { formatUrl } from "@/app/lib/utils";
 import { ProfileData } from "@/app/server/get-profile-data";
-import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Github, Instagram, Linkedin, Twitter, Plus } from "lucide-react";
 import Link from "next/link";
 import AddCustomLink from "./add-custom-link";
 import EditSocialLinks from "./edit-social-links";
@@ -18,6 +18,8 @@ export default async function UserCard({
   profileData,
   isOwner = false,
 }: UserCardProps) {
+  const icons = [Github, Instagram, Linkedin, Twitter, Plus];
+
   return (
     <div className="w-[348px] flex flex-col gap-5 items-center p-5 border border-border-secondary border-opacity-10 bg-[#121212] rounded-3xl text-white">
       <div className="size-48">
@@ -27,7 +29,7 @@ export default async function UserCard({
               ? await getDownloadURLFromPath(profileData.imagePath)
               : "/me.jpg"
           }
-          alt="Vini Dev"
+          alt="Profile Image"
           className="rounded-full object-cover size-full"
         />
       </div>
@@ -90,6 +92,16 @@ export default async function UserCard({
             </Link>
           )}
 
+          {!profileData &&
+            icons.map((Icon, index) => (
+              <button
+                key={index}
+                className="p-3 rounded-xl bg-[#1E1E1E] hover:bg-[#2E2E2E]"
+              >
+                <Icon />
+              </button>
+            ))}
+
           {isOwner && (
             <EditSocialLinks socialMedias={profileData?.socialMedias} />
           )}
@@ -126,6 +138,12 @@ export default async function UserCard({
             >
               <Button className="w-full">{profileData.link3.title}</Button>
             </Link>
+          )}
+
+          {!profileData && (
+            <button className="p-3 rounded-xl bg-[#1E1E1E] hover:bg-[#2E2E2E]">
+              <Plus />
+            </button>
           )}
 
           {isOwner && <AddCustomLink />}
