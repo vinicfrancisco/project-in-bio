@@ -1,7 +1,13 @@
 import Header from "@/app/components/landing-page/header";
-import { Rocket } from "lucide-react";
-import CreateLinkForm from "./create-link-form";
 import { trackServerEvent } from "@/app/lib/mixpanel";
+import { Rocket } from "lucide-react";
+import { Metadata } from "next";
+import CreateLinkForm from "./create-link-form";
+
+export const metadata: Metadata = {
+  title: "ProjectInBio - Criar",
+  description: "ProjectInBio - Criar",
+};
 
 export default function Criar() {
   trackServerEvent("page_view", {

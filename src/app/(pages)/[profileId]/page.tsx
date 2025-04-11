@@ -8,6 +8,7 @@ import {
   getProfileData,
   getProfileProjects,
 } from "@/app/server/get-profile-data";
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import NewProject from "./new-project";
@@ -15,6 +16,11 @@ import NewProject from "./new-project";
 interface ProfilePageProps {
   params: Promise<{ profileId: string }>;
 }
+
+export const metadata: Metadata = {
+  title: "ProjectInBio - Perfil",
+  description: "ProjectInBio - A plataforma de gestão de projetos em biologia.",
+};
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
   const { profileId } = await params;
