@@ -18,7 +18,8 @@ export default function RootLayout({
       <body className={`${redHatDisplay.className} antialiased`}>
         {children}
       </body>
-      <GoogleAnalytics gaId="G-0REZFH39DR" />
+
+      <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID!} />
     </html>
   );
 }
