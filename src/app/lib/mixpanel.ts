@@ -1,6 +1,6 @@
 import Mixpanel from "mixpanel";
 
-const mixpanelEvent = Mixpanel.init("");
+const mixpanelEvent = Mixpanel.init(process.env.MIXPANEL_PROJECT_TOKEN!);
 
 export function trackServerEvent(
   eventName: string,
